@@ -1,0 +1,585 @@
+/* ============================================
+   VARIABLES — Thème Apple
+============================================ */
+:root {
+  --bg-principal: #f5f5f7;
+  --bg-secondaire: #ffffff;
+  --bg-carte: #ffffff;
+  --couleur-accent: #0071e3;
+  --couleur-accent-hover: #0077ed;
+  --texte-principal: #1d1d1f;
+  --texte-secondaire: #6e6e73;
+  --bordure: rgba(0, 0, 0, 0.08);
+  --ombre: 0 4px 24px rgba(0, 0, 0, 0.08);
+  --ombre-hover: 0 12px 40px rgba(0, 0, 0, 0.14);
+  --rayon: 18px;
+  --police: 'SF Pro Display', 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+/* ============================================
+   RESET
+============================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-principal);
+  color: var(--texte-principal);
+  font-family: var(--police);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  /* Lissage des polices — Apple l'utilise sur tous ses produits */
+}
+
+/* ============================================
+   HEADER & NAVIGATION
+============================================ */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  background-color: rgba(245, 245, 247, 0.85);
+  backdrop-filter: blur(20px);
+  /* Blur plus fort que la version sombre — signature Apple */
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--bordure);
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+}
+
+.logo {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--texte-principal);
+  letter-spacing: -0.5px;
+  /* Espacement négatif — Apple compresse légèrement ses titres */
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 2.5rem;
+}
+
+nav a {
+  color: var(--texte-secondaire);
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 400;
+  transition: color 0.2s ease;
+}
+
+nav a:hover {
+  color: var(--texte-principal);
+}
+
+/* ============================================
+   SECTIONS
+============================================ */
+.section {
+  padding: 8rem 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-alt {
+  background-color: var(--bg-secondaire);
+  max-width: 100%;
+}
+
+.section-alt > * {
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.section-titre {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--texte-principal);
+  margin-bottom: 3rem;
+  letter-spacing: -1px;
+  /* Espacement négatif sur les grands titres = style Apple */
+  display: block;
+}
+
+/* ============================================
+   HERO
+============================================ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 0 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.hero-salut {
+  color: var(--couleur-accent);
+  font-size: 1rem;
+  margin-bottom: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
+.hero-nom {
+  font-size: clamp(3rem, 7vw, 6rem);
+  color: var(--texte-principal);
+  line-height: 1.05;
+  margin-bottom: 0.6rem;
+  font-weight: 700;
+  letter-spacing: -2px;
+  /* Plus l'écriture est grande, plus le kerning est resserré */
+}
+
+.hero-titre {
+  font-size: clamp(1.3rem, 3vw, 2rem);
+  color: var(--texte-secondaire);
+  font-weight: 400;
+  margin-bottom: 1.8rem;
+  letter-spacing: -0.5px;
+}
+
+.hero-description {
+  max-width: 560px;
+  color: var(--texte-secondaire);
+  margin-bottom: 3rem;
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+.hero-boutons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Boutons style Apple */
+.btn-principal {
+  padding: 0.85rem 2rem;
+  background-color: var(--couleur-accent);
+  color: #ffffff;
+  border: none;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border-radius: 980px;
+  /* border-radius très élevé = pilule — signature Apple */
+  transition: all 0.2s ease;
+  letter-spacing: 0.2px;
+}
+
+.btn-principal:hover {
+  background-color: var(--couleur-accent-hover);
+  transform: scale(1.02);
+  /* Scale plutôt que translateY — plus subtil */
+}
+
+.btn-secondaire {
+  padding: 0.85rem 2rem;
+  color: var(--couleur-accent);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border-radius: 980px;
+  border: 1.5px solid var(--couleur-accent);
+  transition: all 0.2s ease;
+}
+
+.btn-secondaire:hover {
+  background-color: rgba(0, 113, 227, 0.06);
+  transform: scale(1.02);
+}
+
+/* ============================================
+   À PROPOS
+============================================ */
+.apropos-contenu {
+  display: flex;
+  gap: 4rem;
+  align-items: flex-start;
+}
+
+.apropos-texte {
+  flex: 1.5;
+}
+
+.apropos-texte p {
+  color: var(--texte-secondaire);
+  margin-bottom: 1.2rem;
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+.apropos-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 1.2rem 1.5rem;
+  background-color: var(--bg-carte);
+  border-radius: var(--rayon);
+  box-shadow: var(--ombre);
+  /* On remplace les bordures colorées par des ombres douces */
+}
+
+.info-label {
+  font-size: 0.75rem;
+  color: var(--texte-secondaire);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 500;
+}
+
+.info-valeur {
+  color: var(--texte-principal);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* ============================================
+   COMPÉTENCES
+============================================ */
+.competences-grille {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.2rem;
+}
+
+.competence-carte {
+  background-color: var(--bg-carte);
+  padding: 2rem;
+  border-radius: var(--rayon);
+  box-shadow: var(--ombre);
+  border: 1px solid var(--bordure);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.competence-carte:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--ombre-hover);
+}
+
+.competence-icone {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.competence-carte h3 {
+  color: var(--texte-principal);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.competence-carte p {
+  color: var(--texte-secondaire);
+  font-size: 0.9rem;
+}
+
+/* ============================================
+   RÉALISATIONS
+============================================ */
+.projets-grille {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.projet-carte {
+  background-color: var(--bg-carte);
+  border-radius: var(--rayon);
+  box-shadow: var(--ombre);
+  border: 1px solid var(--bordure);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.projet-carte:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--ombre-hover);
+}
+
+.projet-image {
+  background: linear-gradient(135deg, #e3f0ff 0%, #f0e6ff 100%);
+  /* Dégradé pastel subtil au lieu d'un fond uni */
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5rem;
+}
+
+.projet-info {
+  padding: 1.5rem;
+}
+
+.projet-info h3 {
+  color: var(--texte-principal);
+  margin-bottom: 0.6rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.projet-info p {
+  color: var(--texte-secondaire);
+  font-size: 0.9rem;
+  margin-bottom: 1.2rem;
+  line-height: 1.6;
+}
+
+.projet-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.tag {
+  padding: 0.3rem 0.85rem;
+  background-color: rgba(0, 113, 227, 0.08);
+  color: var(--couleur-accent);
+  font-size: 0.78rem;
+  font-weight: 500;
+  border-radius: 980px;
+  /* Tags en pilule — cohérent avec les boutons */
+}
+
+/* ============================================
+   CONTACT
+============================================ */
+.contact-intro {
+  color: var(--texte-secondaire);
+  margin-bottom: 2.5rem;
+  font-size: 1.1rem;
+}
+
+.contact-liens {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.contact-btn {
+  padding: 0.9rem 2rem;
+  background-color: var(--bg-carte);
+  color: var(--texte-principal);
+  text-decoration: none;
+  border-radius: 980px;
+  border: 1.5px solid var(--bordure);
+  box-shadow: var(--ombre);
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.contact-btn:hover {
+  border-color: var(--couleur-accent);
+  color: var(--couleur-accent);
+  transform: scale(1.03);
+  box-shadow: var(--ombre-hover);
+}
+
+/* ============================================
+   FOOTER
+============================================ */
+footer {
+  text-align: center;
+  padding: 2.5rem;
+  border-top: 1px solid var(--bordure);
+  color: var(--texte-secondaire);
+  font-size: 0.85rem;
+}
+
+/* ============================================
+   STYLES JAVASCRIPT
+============================================ */
+header.scrolled {
+  box-shadow: 0 1px 20px rgba(0, 0, 0, 0.08);
+}
+
+nav a.actif {
+  color: var(--texte-principal);
+  font-weight: 500;
+}
+
+.a-animer {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.a-animer.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================
+   BURGER MENU
+============================================ */
+.burger {
+  display: none;
+  background: none;
+  border: 1.5px solid var(--bordure);
+  color: var(--texte-principal);
+  font-size: 1.1rem;
+  padding: 0.4rem 0.9rem;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+/* ============================================
+   RESPONSIVE
+============================================ */
+@media (max-width: 768px) {
+  .burger {
+    display: block;
+  }
+
+  nav ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    background-color: rgba(245, 245, 247, 0.97);
+    backdrop-filter: blur(20px);
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--bordure);
+    gap: 0;
+  }
+
+  nav ul.ouvert {
+    display: flex;
+  }
+
+  nav ul li a {
+    display: block;
+    padding: 0.8rem 2rem;
+  }
+
+  .apropos-contenu {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .hero-boutons {
+    flex-direction: column;
+  }
+
+  .section-titre {
+    font-size: 2rem;
+  }
+  /* ============================================
+   TYPEWRITER — Curseur clignotant
+============================================ */
+.hero-titre::after {
+  content: '|';
+  /* ::after = pseudo-élément — crée un élément visuel sans HTML */
+  color: var(--couleur-accent);
+  animation: clignote 0.8s infinite;
+  /* infinite = se répète indéfiniment */
+  margin-left: 2px;
+}
+
+@keyframes clignote {
+  /* @keyframes = définit une animation CSS personnalisée */
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+  /* Le curseur passe de visible à invisible en boucle */
+}
+```
+
+---
+
+## ✅ EFFET 2 — Barre de progression au scroll
+
+### 📌 Concept : Calculer la progression
+```
+progression = scrollY / (hauteurTotale - hauteurFenêtre) × 100
+}
+/* ============================================
+   BARRE DE PROGRESSION
+============================================ */
+.barre-progression {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  /* Démarre à 0 — JS va augmenter cette valeur */
+  background: linear-gradient(
+    to right,
+    var(--couleur-accent),
+    #34aadc
+  );
+  z-index: 200;
+  /* Au-dessus du header (z-index: 100) */
+  transition: width 0.1s ease;
+  border-radius: 0 2px 2px 0;
+}
+/* ============================================
+   CURSEUR PERSONNALISÉ
+============================================ */
+* {
+  cursor: none;
+  /* Cache le curseur natif sur toute la page */
+}
+
+.curseur {
+  position: fixed;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid var(--couleur-accent);
+  border-radius: 50%;
+  pointer-events: none;
+  /* pointer-events: none = le curseur ne bloque pas les clics */
+  transform: translate(-50%, -50%);
+  /* Centre le cercle sur la position calculée */
+  transition: transform 0.1s ease, width 0.2s ease,
+              height 0.2s ease, background 0.2s ease;
+  z-index: 9999;
+}
+
+.curseur-point {
+  position: fixed;
+  width: 5px;
+  height: 5px;
+  background-color: var(--couleur-accent);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+}
+
+.curseur.curseur-actif {
+  /* Au survol d'un lien : le cercle grandit et se remplit légèrement */
+  width: 52px;
+  height: 52px;
+  background-color: rgba(0, 113, 227, 0.08);
+}
