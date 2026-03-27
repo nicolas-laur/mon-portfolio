@@ -1024,3 +1024,105 @@ header, main, footer {
     max-width: 1600px;
   }
 }
+/* ============================================
+   TIMELINE EXPÉRIENCE
+============================================ */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.tl-item {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.tl-gauche {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 20px;
+  flex-shrink: 0;
+}
+
+.tl-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--texte-secondaire);
+  flex-shrink: 0;
+  margin-top: 6px;
+  transition: background 0.3s ease;
+}
+
+.tl-dot.actuel {
+  background: var(--couleur-accent);
+  box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.12);
+}
+
+.tl-ligne {
+  width: 2px;
+  background: var(--bordure);
+  flex: 1;
+  margin: 6px 0;
+}
+
+.tl-carte {
+  background: var(--bg-carte);
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon);
+  padding: 1.5rem;
+  flex: 1;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--ombre);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tl-carte:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--ombre-hover);
+}
+
+.tl-date {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--couleur-accent);
+  background: rgba(0, 113, 227, 0.08);
+  padding: 3px 12px;
+  border-radius: 980px;
+  margin-bottom: 0.6rem;
+  letter-spacing: 0.3px;
+}
+
+.tl-entreprise {
+  font-size: 0.85rem;
+  color: var(--texte-secondaire);
+  margin-bottom: 0.3rem;
+}
+
+.tl-titre {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--texte-principal);
+  margin-bottom: 0.6rem;
+}
+
+.tl-description {
+  font-size: 0.9rem;
+  color: var(--texte-secondaire);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+/* Responsive timeline */
+@media (max-width: 768px) {
+  .tl-gauche {
+    display: none;
+  }
+
+  .tl-carte {
+    margin-bottom: 1rem;
+  }
+}

@@ -135,7 +135,7 @@ const elementTypewriter = document.querySelector('.hero-titre');
 const textes = [
   'Business Analyst IA et Cloud',
   'Passionné de nouvelles technologies',
-  'En quête de nouveaux défis',
+  'En quête d\'un nouveaux défi',
 ];
 // Tableau de textes qui vont défiler
 // Modifie ces phrases avec tes vraies accroches !
