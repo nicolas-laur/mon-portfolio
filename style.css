@@ -58,7 +58,7 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 1rem 2rem;
 }
@@ -94,7 +94,7 @@ nav a:hover {
 ============================================ */
 .section {
   padding: 8rem 2rem;
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -104,7 +104,7 @@ nav a:hover {
 }
 
 .section-alt > * {
-  max-width: 1100px;
+  max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
   padding-left: 2rem;
@@ -129,7 +129,7 @@ nav a:hover {
   display: flex;
   align-items: center;
   padding: 0 2rem;
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -306,11 +306,18 @@ nav a:hover {
    RÉALISATIONS
 ============================================ */
 .projets-grille {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 1.5rem;
 }
 
+.projet-carte {
+  width: 340px;
+  flex-shrink: 0;
+  flex-grow: 0;
+  /* Chaque carte fait exactement 340px — ni plus ni moins */
+}
 .projet-carte {
   background-color: var(--bg-carte);
   border-radius: var(--rayon);
@@ -427,10 +434,20 @@ nav a.actif {
   font-weight: 500;
 }
 
+/* Après — avec effet de profondeur */
 .a-animer {
   opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transform: translateY(50px) scale(0.97);
+  /* scale(0.97) = légèrement rétréci → grandit en apparaissant */
+  transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  /* cubic-bezier = courbe d'accélération personnalisée
+     Plus naturelle que "ease" — utilisée par Apple */
+}
+
+.a-animer.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 
 .a-animer.visible {
@@ -837,4 +854,173 @@ progression = scrollY / (hauteurTotale - hauteurFenêtre) × 100
 
 .form-succes p {
   color: var(--texte-secondaire);
+}
+/* ============================================
+   FORMES GÉOMÉTRIQUES FLOTTANTES
+============================================ */
+.formes-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  /* pointer-events: none = ne bloque pas les clics */
+  z-index: 0;
+  overflow: hidden;
+}
+
+.forme {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  /* blur élevé = formes très douces, presque invisibles */
+  opacity: 0.04;
+  /* Très transparent — subtil et élégant */
+  animation: flotter 20s infinite ease-in-out;
+}
+
+.forme-1 {
+  width: 600px;
+  height: 600px;
+  background: var(--couleur-accent);
+  top: -200px;
+  right: -100px;
+  animation-delay: 0s;
+}
+
+.forme-2 {
+  width: 400px;
+  height: 400px;
+  background: #5856d6;
+  /* Violet — complémentaire au bleu Apple */
+  bottom: 20%;
+  left: -100px;
+  animation-delay: -7s;
+  /* Décalage pour que les formes ne bougent pas en synchrone */
+}
+
+.forme-3 {
+  width: 300px;
+  height: 300px;
+  background: var(--couleur-accent);
+  top: 50%;
+  right: 20%;
+  animation-delay: -14s;
+}
+
+.forme-4 {
+  width: 500px;
+  height: 500px;
+  background: #34aadc;
+  bottom: -100px;
+  right: 30%;
+  animation-delay: -3s;
+}
+
+@keyframes flotter {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+  }
+  33% {
+    transform: translateY(-40px) scale(1.05);
+  }
+  66% {
+    transform: translateY(20px) scale(0.95);
+  }
+  /* Les formes montent et descendent très lentement — presque imperceptible */
+}
+
+/* S'assure que le contenu reste au-dessus des formes */
+header, main, footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* Désactivé sur mobile pour les performances */
+@media (max-width: 768px) {
+  .forme {
+    display: none;
+  }
+}
+/* ============================================
+   CANVAS PARTICULES
+============================================ */
+#canvas-particules {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  /* Derrière le contenu */
+}
+
+/* S'assure que le contenu Hero passe au-dessus du canvas */
+.hero {
+  position: relative;
+  /* Nécessaire pour que z-index fonctionne sur les enfants */
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  /* Au-dessus du canvas */
+}
+
+/* Désactivé sur mobile — trop gourmand en ressources */
+@media (max-width: 768px) {
+  #canvas-particules {
+    display: none;
+  }
+}
+/* ============================================
+   GRAND ÉCRAN — Optimisation > 1400px
+============================================ */
+@media (min-width: 1400px) {
+
+  nav,
+  .section,
+  .hero {
+    max-width: 1400px;
+  }
+
+  .section-alt > * {
+    max-width: 1400px;
+  }
+
+  .hero-nom {
+    font-size: 7rem;
+  }
+
+  .hero-description {
+    max-width: 680px;
+    font-size: 1.2rem;
+  }
+
+  .section-titre {
+    font-size: 3.2rem;
+  }
+
+  .competences-grille {
+    grid-template-columns: repeat(4, 1fr);
+    /* 4 cartes sur une ligne sur grand écran */
+  }
+
+  .projets-grille {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1800px) {
+  /* Pour les très grands écrans ultrawide */
+  nav,
+  .section,
+  .hero {
+    max-width: 1600px;
+  }
+
+  .section-alt > * {
+    max-width: 1600px;
+  }
 }

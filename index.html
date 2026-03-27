@@ -10,6 +10,15 @@
 
 <body>
 
+  <!-- Formes géométriques d'arrière-plan -->
+<div class="formes-bg" aria-hidden="true">
+  <!-- aria-hidden = invisible pour les lecteurs d'écran -->
+  <div class="forme forme-1"></div>
+  <div class="forme forme-2"></div>
+  <div class="forme forme-3"></div>
+  <div class="forme forme-4"></div>
+</div>
+
   <!-- ========================================
        HEADER : Barre de navigation en haut
   ======================================== -->
@@ -37,6 +46,8 @@
 
     <!-- SECTION 1 : Hero (première chose visible) -->
     <section id="accueil" class="hero">
+        <!-- Canvas des particules — juste avant hero-content -->
+  <canvas id="canvas-particules"></canvas>
       <div class="hero-content">
         <p class="hero-salut">Bonjour, je suis</p>
         <h1 class="hero-nom">Nicolas LAUR</h1>

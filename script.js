@@ -304,3 +304,116 @@ if (form) {
     }
   });
 }
+// ============================================
+// PARALLAX — Effet de profondeur au scroll
+// ============================================
+
+const heroSection = document.querySelector('.hero');
+
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY;
+  
+  // Le contenu Hero remonte 2x moins vite que le scroll
+  // Crée une illusion de profondeur
+  if (heroSection) {
+    heroSection.style.transform = `translateY(${scrolled * 0.3}px)`;
+    // 0.3 = facteur de parallax — plus petit = effet plus subtil
+    heroSection.style.opacity = 1 - scrolled * 0.002;
+    // Le hero devient transparent progressivement au scroll
+  }
+});
+// ============================================
+// CANVAS — Réseau de particules interactif
+// ============================================
+const canvas = document.getElementById('canvas-particules');
+
+if (canvas && window.innerWidth > 768) {
+  const ctx = canvas.getContext('2d');
+
+  function redimensionnerCanvas() {
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+  }
+  redimensionnerCanvas();
+  window.addEventListener('resize', redimensionnerCanvas);
+
+  const CONFIG = {
+    nombre: 80,
+    vitesseMax: 0.4,
+    rayon: 2,
+    distanceMax: 150,
+    couleur: '0, 113, 227',
+    repulsion: 120,
+  };
+
+  const souris = { x: -999, y: -999 };
+  canvas.addEventListener('mousemove', (e) => {
+    const rect = canvas.getBoundingClientRect();
+    souris.x = e.clientX - rect.left;
+    souris.y = e.clientY - rect.top;
+  });
+  canvas.addEventListener('mouseleave', () => {
+    souris.x = -999;
+    souris.y = -999;
+  });
+
+  class Particule {
+    constructor() { this.reinitialiser(); }
+    reinitialiser() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.vx = (Math.random() - 0.5) * CONFIG.vitesseMax * 2;
+      this.vy = (Math.random() - 0.5) * CONFIG.vitesseMax * 2;
+      this.rayon = Math.random() * CONFIG.rayon + 1;
+    }
+    deplacer() {
+      const dx = this.x - souris.x;
+      const dy = this.y - souris.y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+      if (distance < CONFIG.repulsion) {
+        const force = (CONFIG.repulsion - distance) / CONFIG.repulsion;
+        this.x += dx / distance * force * 3;
+        this.y += dy / distance * force * 3;
+      }
+      this.x += this.vx;
+      this.y += this.vy;
+      if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+      if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+    }
+    dessiner() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.rayon, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${CONFIG.couleur}, 0.7)`;
+      ctx.fill();
+    }
+  }
+
+  const particules = Array.from({ length: CONFIG.nombre }, () => new Particule());
+
+  function tracerConnexions() {
+    for (let i = 0; i < particules.length; i++) {
+      for (let j = i + 1; j < particules.length; j++) {
+        const dx = particules[i].x - particules[j].x;
+        const dy = particules[i].y - particules[j].y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        if (distance < CONFIG.distanceMax) {
+          const opacite = 1 - distance / CONFIG.distanceMax;
+          ctx.beginPath();
+          ctx.moveTo(particules[i].x, particules[i].y);
+          ctx.lineTo(particules[j].x, particules[j].y);
+          ctx.strokeStyle = `rgba(${CONFIG.couleur}, ${opacite * 0.4})`;
+          ctx.lineWidth = opacite * 1.5;
+          ctx.stroke();
+        }
+      }
+    }
+  }
+
+  function animer() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particules.forEach(p => { p.deplacer(); p.dessiner(); });
+    tracerConnexions();
+    requestAnimationFrame(animer);
+  }
+  animer();
+}
