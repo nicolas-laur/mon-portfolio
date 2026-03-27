@@ -520,9 +520,11 @@ nav a.actif {
     /* Liens du menu centrés */
   }
 
-  nav ul.ouvert {
-    display: flex;
-  }
+nav ul.ouvert {
+  display: flex;
+  z-index: 99;
+  /* S'assure que le menu passe au-dessus de tout le contenu */
+}
 
   nav ul li a {
     display: block;
@@ -1127,76 +1129,26 @@ header, main, footer {
   }
 }
 /* ============================================
-   HERO MOBILE — Effet CSS pur
+   HERO MOBILE — Fond animé CSS
 ============================================ */
-
-/* @keyframes déclarés HORS du @media — compatibilité totale */
-@keyframes pulse-mobile {
-  0%, 100% { transform: scale(1); opacity: 0.5; }
-  50%       { transform: scale(1.2); opacity: 0.9; }
-}
-
-@keyframes grille-mobile {
-  0%, 100% { opacity: 0.4; }
-  50%       { opacity: 0.7; }
+.hero-mobile-bg {
+  display: none;
 }
 
 @media (max-width: 768px) {
-
-  .hero {
-    position: relative;
-    overflow: hidden;
-  }
-
-  /* Cercle haut droite */
-  .hero::before {
-    content: '';
+  .hero-mobile-bg {
+    display: block;
     position: absolute;
-    width: 280px;
-    height: 280px;
-    background: rgba(0, 113, 227, 0.07);
-    border-radius: 50%;
-    top: -80px;
-    right: -80px;
-    animation: pulse-mobile 7s ease-in-out infinite;
-    pointer-events: none;
+    inset: 0;
+    background-image:
+      radial-gradient(circle, rgba(0,113,227,0.15) 1.5px, transparent 1.5px);
+    background-size: 32px 32px;
     z-index: 0;
+    animation: fond-mobile 4s ease-in-out infinite;
   }
 
-  /* Cercle bas gauche */
-  .hero::after {
-    content: '';
-    position: absolute;
-    width: 200px;
-    height: 200px;
-    background: rgba(0, 113, 227, 0.05);
-    border-radius: 50%;
-    bottom: 5%;
-    left: -60px;
-    animation: pulse-mobile 9s ease-in-out infinite reverse;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  /* Grille de points */
-  .hero-content {
-    position: relative;
-    z-index: 1;
-  }
-
-  .hero-content::before {
-    content: '';
-    position: absolute;
-    inset: -50px;
-    /* inset = shorthand pour top/right/bottom/left */
-    background-image: radial-gradient(
-      circle,
-      rgba(0, 113, 227, 0.18) 1.5px,
-      transparent 1.5px
-    );
-    background-size: 35px 35px;
-    pointer-events: none;
-    z-index: -1;
-    animation: grille-mobile 5s ease-in-out infinite;
+  @keyframes fond-mobile {
+    0%, 100% { opacity: 0.4; }
+    50%       { opacity: 0.9; }
   }
 }
