@@ -460,13 +460,15 @@ nav a.actif {
 ============================================ */
 .burger {
   display: none;
-  background: none;
+  background: rgba(255, 255, 255, 0.95);
   border: 1.5px solid var(--bordure);
   color: var(--texte-principal);
   font-size: 1.1rem;
   padding: 0.4rem 0.9rem;
   cursor: pointer;
   border-radius: 8px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* ============================================
@@ -1129,26 +1131,15 @@ header, main, footer {
   }
 }
 /* ============================================
-   HERO MOBILE — Fond animé CSS
+   HERO MOBILE — Dégradé simple
 ============================================ */
-.hero-mobile-bg {
-  display: none;
-}
-
 @media (max-width: 768px) {
-  .hero-mobile-bg {
-    display: block;
-    position: absolute;
-    inset: 0;
-    background-image:
-      radial-gradient(circle, rgba(0,113,227,0.15) 1.5px, transparent 1.5px);
-    background-size: 32px 32px;
-    z-index: 0;
-    animation: fond-mobile 4s ease-in-out infinite;
-  }
-
-  @keyframes fond-mobile {
-    0%, 100% { opacity: 0.4; }
-    50%       { opacity: 0.9; }
+  .hero {
+    background: linear-gradient(
+      135deg,
+      rgba(0, 113, 227, 0.05) 0%,
+      rgba(245, 245, 247, 1) 50%,
+      rgba(0, 113, 227, 0.03) 100%
+    );
   }
 }
