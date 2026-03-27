@@ -258,3 +258,49 @@ document.querySelectorAll('a, button').forEach(el => {
     curseur.classList.remove('curseur-actif');
   });
 });
+// ============================================
+// FORMULAIRE DE CONTACT — Confirmation d'envoi
+// ============================================
+
+const form = document.querySelector('.contact-form');
+
+if (form) {
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    // preventDefault = empêche le rechargement de page par défaut
+
+    const bouton = form.querySelector('.form-bouton');
+    bouton.textContent = 'Envoi en cours...';
+    bouton.disabled = true;
+    // disabled = désactive le bouton pendant l'envoi (évite les doublons)
+
+    const donnees = new FormData(form);
+    // FormData = collecte automatiquement tous les champs du formulaire
+
+    try {
+      const reponse = await fetch(form.action, {
+        method: 'POST',
+        body: donnees,
+        headers: { 'Accept': 'application/json' }
+      });
+      // fetch = envoie les données à Formspree sans recharger la page
+      // await = attend la réponse avant de continuer
+
+      if (reponse.ok) {
+        // Succès — on remplace le formulaire par un message
+        form.innerHTML = `
+          <div class="form-succes">
+            <span class="succes-icone">✅</span>
+            <h3>Message envoyé !</h3>
+            <p>Merci pour votre message. Je vous répondrai dans les plus brefs délais.</p>
+          </div>
+        `;
+      } else {
+        throw new Error('Erreur serveur');
+      }
+    } catch (erreur) {
+      bouton.textContent = 'Erreur — Réessayer';
+      bouton.disabled = false;
+    }
+  });
+}
