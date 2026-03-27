@@ -206,40 +206,48 @@ window.addEventListener('scroll', () => {
 // EFFET 3 — CURSEUR PERSONNALISÉ
 // ============================================
 
-const curseur = document.createElement('div');
-const curseurPoint = document.createElement('div');
-curseur.classList.add('curseur');
-curseurPoint.classList.add('curseur-point');
-document.body.appendChild(curseur);
-document.body.appendChild(curseurPoint);
+// ============================================
+// EFFET 3 — CURSEUR PERSONNALISÉ
+// Désactivé sur les appareils tactiles
+// ============================================
 
-let sourisX = 0, sourisY = 0;
-let curseurX = 0, curseurY = 0;
+// On détecte si l'appareil est tactile
+const estTactile = window.matchMedia('(hover: none)').matches;
+// hover: none = l'appareil principal est tactile (pas de souris)
 
-document.addEventListener('mousemove', (e) => {
-  sourisX = e.clientX;
-  sourisY = e.clientY;
-  // clientX/Y = position de la souris dans la fenêtre
+if (!estTactile) {
+  // On n'active le curseur que sur desktop
+  const curseur = document.createElement('div');
+  const curseurPoint = document.createElement('div');
+  curseur.classList.add('curseur');
+  curseurPoint.classList.add('curseur-point');
+  document.body.appendChild(curseur);
+  document.body.appendChild(curseurPoint);
 
-  // Le petit point suit instantanément
-  curseurPoint.style.left = sourisX + 'px';
-  curseurPoint.style.top  = sourisY + 'px';
-});
+  let sourisX = 0, sourisY = 0;
+  let curseurX = 0, curseurY = 0;
 
-// Le grand cercle suit avec un léger retard (effet traînée)
-function animerCurseur() {
-  curseurX += (sourisX - curseurX) * 0.12;
-  curseurY += (sourisY - curseurY) * 0.12;
-  // 0.12 = facteur de lissage — plus petit = plus lent
+  document.addEventListener('mousemove', (e) => {
+    sourisX = e.clientX;
+    sourisY = e.clientY;
+    curseurPoint.style.left = sourisX + 'px';
+    curseurPoint.style.top  = sourisY + 'px';
+  });
 
-  curseur.style.left = curseurX + 'px';
-  curseur.style.top  = curseurY + 'px';
+  function animerCurseur() {
+    curseurX += (sourisX - curseurX) * 0.12;
+    curseurY += (sourisY - curseurY) * 0.12;
+    curseur.style.left = curseurX + 'px';
+    curseur.style.top  = curseurY + 'px';
+    requestAnimationFrame(animerCurseur);
+  }
+  animerCurseur();
 
-  requestAnimationFrame(animerCurseur);
-  // requestAnimationFrame = s'exécute à chaque frame (60x/seconde)
-  // Plus précis et économe que setInterval pour les animations
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => curseur.classList.add('curseur-actif'));
+    el.addEventListener('mouseleave', () => curseur.classList.remove('curseur-actif'));
+  });
 }
-animerCurseur();
 
 // Effet au survol des éléments cliquables
 document.querySelectorAll('a, button').forEach(el => {

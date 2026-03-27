@@ -455,7 +455,34 @@ nav a.actif {
 /* ============================================
    RESPONSIVE
 ============================================ */
+/* ============================================
+   RESPONSIVE — Tablette (max 1024px)
+============================================ */
+@media (max-width: 1024px) {
+  .apropos-contenu {
+    gap: 2rem;
+  }
+
+  .competences-grille {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .projets-grille {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ============================================
+   RESPONSIVE — Mobile & Tablette (max 768px)
+============================================ */
 @media (max-width: 768px) {
+
+  /* Curseur natif rétabli sur tactile */
+  * {
+    cursor: auto;
+  }
+
+  /* Navigation */
   .burger {
     display: block;
   }
@@ -472,6 +499,8 @@ nav a.actif {
     padding: 1rem 0;
     border-bottom: 1px solid var(--bordure);
     gap: 0;
+    text-align: center;
+    /* Liens du menu centrés */
   }
 
   nav ul.ouvert {
@@ -483,18 +512,112 @@ nav a.actif {
     padding: 0.8rem 2rem;
   }
 
-  .apropos-contenu {
-    flex-direction: column;
-    gap: 2rem;
+  /* Hero — tout centré */
+  .hero {
+    justify-content: center;
+    text-align: center;
+    padding: 6rem 1.5rem 3rem;
+  }
+
+  .hero-description {
+    margin-left: auto;
+    margin-right: auto;
+    /* Auto sur les deux côtés = centré */
   }
 
   .hero-boutons {
     flex-direction: column;
+    align-items: center;
+    /* Boutons centrés et empilés */
+  }
+
+  /* Titres de section centrés */
+  .section-titre {
+    display: block;
+    text-align: center;
+    border-bottom: none;
+    /* On retire le soulignement partiel */
+    padding-bottom: 0;
+    margin-bottom: 2rem;
+  }
+
+  .section-titre::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background-color: var(--couleur-accent);
+    margin: 0.75rem auto 0;
+    /* Ligne décorative centrée sous le titre */
+    border-radius: 2px;
+  }
+
+  /* À propos — empilé et centré */
+  .apropos-contenu {
+    flex-direction: column;
+    gap: 2rem;
+    text-align: center;
+  }
+
+  .apropos-texte p {
+    text-align: left;
+    /* Le texte long reste aligné à gauche pour la lisibilité */
+  }
+
+  /* Compétences — 1 colonne */
+  .competences-grille {
+    grid-template-columns: 1fr;
+  }
+
+  .competence-carte {
+    text-align: center;
+  }
+
+  /* Projets — 1 colonne */
+  .projets-grille {
+    grid-template-columns: 1fr;
+  }
+
+  /* Contact — centré */
+  .contact-intro {
+    text-align: center;
+  }
+
+  .contact-liens {
+    justify-content: center;
+    /* Boutons de contact centrés */
+  }
+
+  /* Sections — padding réduit sur mobile */
+  .section {
+    padding: 4rem 1.5rem;
+  }
+}
+
+/* ============================================
+   RESPONSIVE — Petit mobile (max 480px)
+============================================ */
+@media (max-width: 480px) {
+  .hero-nom {
+    font-size: 2.5rem;
   }
 
   .section-titre {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
+
+  .btn-principal,
+  .btn-secondaire {
+    width: 100%;
+    text-align: center;
+    /* Boutons pleine largeur sur très petit écran */
+  }
+
+  .contact-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
   /* ============================================
    TYPEWRITER — Curseur clignotant
 ============================================ */
