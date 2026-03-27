@@ -1126,3 +1126,66 @@ header, main, footer {
     margin-bottom: 1rem;
   }
 }
+/* ============================================
+   HERO MOBILE — Effet CSS pur à la place du canvas
+============================================ */
+@media (max-width: 768px) {
+
+  .hero {
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Cercles animés en CSS pur — aucun JS, aucun impact batterie */
+  .hero::before,
+  .hero::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .hero::before {
+    width: 300px;
+    height: 300px;
+    background: rgba(0, 113, 227, 0.06);
+    top: -80px;
+    right: -80px;
+    animation: pulse-mobile 6s ease-in-out infinite;
+  }
+
+  .hero::after {
+    width: 200px;
+    height: 200px;
+    background: rgba(0, 113, 227, 0.04);
+    bottom: 10%;
+    left: -60px;
+    animation: pulse-mobile 8s ease-in-out infinite reverse;
+  }
+
+  @keyframes pulse-mobile {
+    0%, 100% { transform: scale(1); opacity: 0.6; }
+    50%       { transform: scale(1.15); opacity: 1; }
+  }
+
+  /* Points décoratifs statiques */
+  .hero-content::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-image:
+      radial-gradient(circle, rgba(0,113,227,0.15) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+  }
+}
