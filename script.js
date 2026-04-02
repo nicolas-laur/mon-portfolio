@@ -44,12 +44,20 @@ burger.addEventListener('click', () => {
   // L'opérateur ternaire : condition ? valeur_si_vrai : valeur_si_faux
 });
 
-// Fermer le menu quand on clique sur un lien
+// Fermer le menu quand on clique sur un lien et naviguer vers la section
 navUl.querySelectorAll('a').forEach(lien => {
-  // forEach = exécute une fonction pour chaque élément du tableau
-  lien.addEventListener('click', () => {
+  lien.addEventListener('click', (e) => {
+    const href = lien.getAttribute('href');
     navUl.classList.remove('ouvert');
     burger.innerHTML = '☰';
+    if (href && href.startsWith('#')) {
+      e.preventDefault();
+      // On attend 50ms que le menu se ferme avant de scroller
+      setTimeout(() => {
+        const cible = document.querySelector(href);
+        if (cible) cible.scrollIntoView({ behavior: 'smooth' });
+      }, 50);
+    }
   });
 });
 
@@ -249,15 +257,8 @@ if (!estTactile) {
   });
 }
 
-// Effet au survol des éléments cliquables
-document.querySelectorAll('a, button').forEach(el => {
-  el.addEventListener('mouseenter', () => {
-    curseur.classList.add('curseur-actif');
-  });
-  el.addEventListener('mouseleave', () => {
-    curseur.classList.remove('curseur-actif');
-  });
-});
+// Note : le survol des éléments cliquables est déjà géré
+// à l'intérieur du bloc if (!estTactile) ci-dessus.
 // ============================================
 // FORMULAIRE DE CONTACT — Confirmation d'envoi
 // ============================================
