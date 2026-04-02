@@ -464,7 +464,7 @@ nav a.actif {
    BURGER MENU
 ============================================ */
 .burger {
-    display: block;
+    display: none; /* Caché par défaut sur desktop — affiché uniquement via media query mobile */
     background: #ffffff;
     border: 1.5px solid #d0d0d0;
     color: #1d1d1f;
@@ -513,8 +513,8 @@ nav a.actif {
 
 nav ul {
     display: none;
-    position: absolute;
-    top: 100%;
+    position: fixed;   /* fixed = viewport, bypasse tout contexte de stacking du contenu */
+    top: 60px;         /* valeur de secours — écrasée dynamiquement par JS */
     left: 0;
     right: 0;
     width: 100%;
@@ -524,7 +524,7 @@ nav ul {
     border-bottom: 1px solid #e0e0e0;
     box-shadow: 0 8px 24px rgba(0,0,0,0.12);
     gap: 0;
-    z-index: 9999;
+    z-index: 99999;    /* au-dessus de tout, y compris les couches GPU du hero */
   }
 
   nav ul.ouvert {

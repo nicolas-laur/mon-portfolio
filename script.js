@@ -39,9 +39,11 @@ nav.appendChild(burger);
 // Au clic sur le burger → on toggle (ajoute/retire) la classe 'ouvert'
 burger.addEventListener('click', () => {
   navUl.classList.toggle('ouvert');
-  // toggle = si la classe est là → la retire, si elle est absente → l'ajoute
   burger.innerHTML = navUl.classList.contains('ouvert') ? '✕' : '☰';
-  // L'opérateur ternaire : condition ? valeur_si_vrai : valeur_si_faux
+
+  // Positionnement dynamique : le dropdown s'accroche juste sous le header réel
+  // Évite les problèmes de hardcoding selon la hauteur du header
+  navUl.style.top = header.offsetHeight + 'px';
 });
 
 // Fermer le menu quand on clique sur un lien et naviguer vers la section
