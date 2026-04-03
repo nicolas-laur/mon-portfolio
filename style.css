@@ -382,6 +382,170 @@ nav a:hover {
 }
 
 /* ============================================
+   CERTIFICATIONS — CARROUSEL
+============================================ */
+.carrousel-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.carrousel-viewport {
+  overflow: hidden;
+  width: 100%;
+}
+
+.carrousel-piste {
+  display: flex;
+  gap: 1.5rem;
+  transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.cert-carte {
+  flex: 0 0 calc(33.333% - 1rem);
+  /* 3 cartes — soustrait 2/3 du gap total (2 × 1.5rem / 3) */
+  background: var(--bg-carte);
+  border-radius: var(--rayon);
+  border: 1px solid var(--bordure);
+  border-top: 3px solid var(--couleur-accent);
+  box-shadow: var(--ombre);
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  text-decoration: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cert-carte:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--ombre-hover);
+}
+
+.cert-icone {
+  font-size: 2.2rem;
+  width: 68px;
+  height: 68px;
+  background: rgba(0, 113, 227, 0.06);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.cert-contenu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.cert-titre {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--texte-principal);
+  line-height: 1.4;
+}
+
+.cert-emetteur {
+  font-size: 0.83rem;
+  color: var(--texte-secondaire);
+}
+
+.cert-badge {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.3rem 0.9rem;
+  background: rgba(0, 113, 227, 0.08);
+  color: var(--couleur-accent);
+  border-radius: 980px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  transition: background 0.2s ease;
+}
+
+.cert-carte:hover .cert-badge {
+  background: rgba(0, 113, 227, 0.15);
+}
+
+/* Boutons flèches */
+.carrousel-btn {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid var(--bordure);
+  background: var(--bg-carte);
+  color: var(--texte-principal);
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--ombre);
+  transition: all 0.2s ease;
+}
+
+.carrousel-btn:hover:not(:disabled) {
+  border-color: var(--couleur-accent);
+  color: var(--couleur-accent);
+  transform: scale(1.06);
+  box-shadow: var(--ombre-hover);
+}
+
+.carrousel-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+/* Points de navigation */
+.carrousel-points {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: 2rem;
+}
+
+.point {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: var(--bordure);
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.25s ease;
+}
+
+.point.actif {
+  background: var(--couleur-accent);
+  width: 24px;
+  border-radius: 4px;
+}
+
+/* Desktop : 3 cartes visibles, carrousel désactivé */
+@media (min-width: 768px) {
+  .carrousel-btn,
+  .carrousel-points {
+    display: none;
+  }
+}
+
+/* Mobile : 1 carte à la fois, flèches et points actifs */
+@media (max-width: 767px) {
+  .cert-carte {
+    flex: 0 0 100%;
+  }
+  .carrousel-wrapper {
+    gap: 0.5rem;
+  }
+}
+
+/* ============================================
    CONTACT
 ============================================ */
 .contact-intro {

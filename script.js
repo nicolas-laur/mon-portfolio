@@ -420,3 +420,60 @@ if (canvas && window.innerWidth > 768) {
   }
   animer();
 }
+// ============================================
+// CARROUSEL — Certifications
+// ============================================
+
+const piste       = document.querySelector('.carrousel-piste');
+const viewport    = document.querySelector('.carrousel-viewport');
+const cartes      = document.querySelectorAll('.cert-carte');
+const points      = document.querySelectorAll('.carrousel-points .point');
+const btnPrev     = document.querySelector('.carrousel-prev');
+const btnSuivant  = document.querySelector('.carrousel-suivant');
+
+if (piste && cartes.length > 0) {
+  let indexCarrousel = 0;
+  const total = cartes.length;
+
+  function estMobile() {
+    return window.innerWidth < 768;
+  }
+
+  function allerA(n) {
+    // Clamp entre 0 et total - 1
+    indexCarrousel = Math.max(0, Math.min(n, total - 1));
+
+    if (estMobile()) {
+      // Largeur d'une carte + gap (24px défini en CSS)
+      const largeurCarte = cartes[0].offsetWidth + 24;
+      piste.style.transform = `translateX(-${indexCarrousel * largeurCarte}px)`;
+    } else {
+      // Desktop : on montre tout, pas de déplacement
+      piste.style.transform = 'translateX(0)';
+    }
+
+    // Mise à jour des boutons
+    if (btnPrev)    btnPrev.disabled    = indexCarrousel === 0;
+    if (btnSuivant) btnSuivant.disabled = indexCarrousel === total - 1;
+
+    // Mise à jour des points
+    points.forEach((pt, i) => {
+      pt.classList.toggle('actif', i === indexCarrousel);
+    });
+  }
+
+  // Boutons prev / suivant
+  if (btnPrev)    btnPrev.addEventListener('click',    () => allerA(indexCarrousel - 1));
+  if (btnSuivant) btnSuivant.addEventListener('click', () => allerA(indexCarrousel + 1));
+
+  // Clics sur les points
+  points.forEach((pt, i) => {
+    pt.addEventListener('click', () => allerA(i));
+  });
+
+  // Recalcul au redimensionnement (ex. rotation tablette)
+  window.addEventListener('resize', () => allerA(indexCarrousel));
+
+  // Initialisation
+  allerA(0);
+}
