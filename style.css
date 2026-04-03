@@ -961,8 +961,11 @@ progression = scrollY / (hauteurTotale - hauteurFenêtre) × 100
   /* Les formes montent et descendent très lentement — presque imperceptible */
 }
 
-/* S'assure que le contenu reste au-dessus des formes */
-header, main, footer {
+/* S'assure que le contenu reste au-dessus des formes flottantes (z-index: 0)
+   Note : header est exclu — il a sa propre règle z-index: 100 ligne 44.
+   L'inclure ici écraserait son z-index à 1 (même spécificité, règle tardive gagne),
+   ce qui mettrait main au-dessus du header et casserait le dropdown mobile. */
+main, footer {
   position: relative;
   z-index: 1;
 }
