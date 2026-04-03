@@ -506,6 +506,17 @@ nav a.actif {
     cursor: auto;
   }
 
+  /* Header — backdrop-filter désactivé sur mobile
+     Raison : backdrop-filter crée un nouveau containing block pour les enfants
+     position:fixed (spec CSS, confirmé Safari/iOS/WebKit). Sans ce fix,
+     le dropdown reste bloqué dans le contexte de stacking du header (z-index:100)
+     et passe derrière le contenu GPU-composité du Hero. */
+  header {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background-color: rgba(245, 245, 247, 0.97);
+  }
+
   /* Navigation */
   .burger {
     display: block;
