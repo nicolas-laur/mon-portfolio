@@ -402,8 +402,8 @@ nav a:hover {
 }
 
 .cert-carte {
-  flex: 0 0 calc(33.333% - 1rem);
-  /* 3 cartes — soustrait 2/3 du gap total (2 × 1.5rem / 3) */
+  flex: 0 0 calc(25% - 1.125rem);
+  /* 4 cartes — soustrait 3/4 du gap total (3 × 1.5rem / 4) */
   background: var(--bg-carte);
   border-radius: var(--rayon);
   border: 1px solid var(--bordure);
@@ -535,11 +535,18 @@ nav a:hover {
   border-radius: 4px;
 }
 
-/* Desktop : 3 cartes visibles, carrousel désactivé */
+/* Desktop : 4 cartes visibles, carrousel désactivé */
 @media (min-width: 768px) {
   .carrousel-btn,
   .carrousel-points {
     display: none;
+  }
+}
+
+/* Tablette (768–1023px) : 2 cartes par rangée pour éviter le trop serré */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .cert-carte {
+    flex: 0 0 calc(50% - 0.75rem);
   }
 }
 
