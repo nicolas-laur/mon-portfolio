@@ -535,15 +535,24 @@ nav a:hover {
   border-radius: 4px;
 }
 
-/* Desktop : 4 cartes visibles, carrousel désactivé */
+/* Desktop : grille 3 × 2, carrousel désactivé */
 @media (min-width: 768px) {
   .carrousel-btn,
   .carrousel-points {
     display: none;
   }
+
+  .carrousel-piste {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .cert-carte {
+    flex: 0 0 calc(33.333% - 1rem);
+  }
 }
 
-/* Tablette (768–1023px) : 2 cartes par rangée pour éviter le trop serré */
+/* Tablette (768–1023px) : 2 cartes par rangée */
 @media (min-width: 768px) and (max-width: 1023px) {
   .cert-carte {
     flex: 0 0 calc(50% - 0.75rem);
