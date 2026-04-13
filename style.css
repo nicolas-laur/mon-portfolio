@@ -871,16 +871,7 @@ nav ul {
   50%       { opacity: 0; }
   /* Le curseur passe de visible à invisible en boucle */
 }
-```
 
----
-
-## ✅ EFFET 2 — Barre de progression au scroll
-
-### 📌 Concept : Calculer la progression
-```
-progression = scrollY / (hauteurTotale - hauteurFenêtre) × 100
-}
 /* ============================================
    BARRE DE PROGRESSION
 ============================================ */
