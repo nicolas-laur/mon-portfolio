@@ -6,12 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nicolas LAUR</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <!-- Sécurité : headers via balises meta -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <!-- Formes géométriques d'arrière-plan -->
 <div class="formes-bg" aria-hidden="true">
   <!-- aria-hidden = invisible pour les lecteurs d'écran -->
   <div class="forme forme-1"></div>
@@ -20,13 +23,11 @@
   <div class="forme forme-4"></div>
 </div>
 
-  <!-- ========================================
-       HEADER : Barre de navigation en haut
-  ======================================== -->
+
   <header>
     <nav>
       <span class="logo">NL</span>
-      <!-- "class" = un surnom qu'on donne à un élément pour le cibler en CSS -->
+
 
 <ul>
   <li><a href="#accueil">Accueil</a></li>
@@ -40,12 +41,9 @@
     </nav>
   </header>
 
-  <!-- ========================================
-       MAIN : Tout le contenu principal
-  ======================================== -->
+
   <main>
 
-    <!-- SECTION 1 : Hero (première chose visible) -->
     <section id="accueil" class="hero">
         <!-- Canvas des particules — juste avant hero-content -->
   <canvas id="canvas-particules"></canvas>
@@ -66,7 +64,7 @@
       </div>
     </section>
 
-    <!-- SECTION 2 : À propos -->
+
     <section id="apropos" class="section">
       <h2 class="section-titre">À propos</h2>
       <div class="apropos-contenu">
@@ -109,7 +107,7 @@
       </div>
     </section>
 
-    <!-- SECTION 3 : Compétences -->
+  
     <section id="competences" class="section section-alt">
       <!-- "section-alt" = fond légèrement différent pour alterner les sections -->
       <h2 class="section-titre">Compétences</h2>
@@ -141,7 +139,7 @@
 
       </div>
     </section>
-<!-- SECTION : Expérience -->
+
 <section id="experience" class="section">
   <h2 class="section-titre">Expérience</h2>
   <div class="timeline">
@@ -236,7 +234,7 @@
 
   </div>
 </section>
-    <!-- SECTION : Certifications -->
+
     <section id="certifications" class="section section-alt">
       <h2 class="section-titre">Certifications</h2>
 
@@ -319,7 +317,7 @@
 
     </section>
 
-    <!-- SECTION 4 : Réalisations -->
+
     <section id="realisations" class="section">
       <h2 class="section-titre">Réalisations</h2>
       <div class="projets-grille">
@@ -367,8 +365,7 @@
       </div>
     </section>
 
-    <!-- SECTION 5 : Contact -->
-<!-- SECTION 5 : Contact -->
+
 <section id="contact" class="section section-alt">
   <h2 class="section-titre">Contact</h2>
   <p class="contact-intro">
@@ -377,20 +374,16 @@
 
   <div class="contact-wrapper">
 
-    <!-- Formulaire de contact -->
     <form class="contact-form" action="https://formspree.io/f/mreoezav" method="POST">
-      <!-- Remplace XXXXXXXX par ton ID Formspree -->
 
       <div class="form-groupe">
         <label for="nom">Nom</label>
         <input type="text" id="nom" name="nom" placeholder="Votre nom" required>
-        <!-- required = champ obligatoire, le navigateur bloque l'envoi si vide -->
       </div>
 
       <div class="form-groupe">
         <label for="email">Email</label>
         <input type="email" id="email" name="email" placeholder="votre@email.com" required>
-        <!-- type="email" = validation automatique du format email -->
       </div>
 
       <div class="form-groupe">
@@ -402,13 +395,12 @@
 
     </form>
 
-    <!-- Liens sociaux à droite -->
     <div class="contact-social">
       <p class="social-titre">Retrouvez-moi aussi sur</p>
       <div class="contact-liens">
         <a href="mailto:contact@nicolas-laur.com" class="contact-btn">📧 Email</a>
-        <a href="https://linkedin.com/in/nicolas-laur" class="contact-btn" target="_blank">💼 LinkedIn</a>
-        <a href="https://github.com/nicolas-laur" class="contact-btn" target="_blank">🐙 GitHub</a>
+        <a href="https://www.linkedin.com/in/nicolas-l-97a423113/" class="contact-btn" target="_blank" rel="noopener noreferrer">💼 LinkedIn</a>
+        <a href="https://github.com/nicolas-laur" class="contact-btn" target="_blank" rel="noopener noreferrer">🐙 GitHub</a>
       </div>
     </div>
 

@@ -1,0 +1,23 @@
+# Fichiers système
+.DS_Store
+Thumbs.db
+
+# Variables d'environnement (ne jamais commiter)
+.env
+.env.local
+.env.*.local
+
+# Credentials & clés
+*.key
+*.pem
+credentials.json
+secrets.json
+
+# Éditeurs
+.vscode/
+.idea/
+*.swp
+
+# Logs
+*.log
+npm-debug.log*
