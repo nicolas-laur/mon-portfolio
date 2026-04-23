@@ -970,7 +970,35 @@ nav a:hover {
 .manim-pied {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
+}
+
+.manim-btn {
+  padding: 0.55rem 1.4rem;
+  background-color: var(--couleur-accent);
+  color: #ffffff;
+  border: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-radius: 980px;
+  cursor: pointer;
+  letter-spacing: 0.2px;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.manim-btn:hover {
+  background-color: var(--couleur-accent-hover);
+  transform: scale(1.02);
+}
+
+.manim-btn.reset {
+  background-color: transparent;
+  color: var(--couleur-accent);
+  border: 1.5px solid var(--couleur-accent);
+}
+
+.manim-btn.reset:hover {
+  background-color: rgba(0, 113, 227, 0.06);
 }
 
 .manim-elapsed {

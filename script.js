@@ -623,7 +623,7 @@ function manimReinit() {
   ['manim-btn', 'manim-etat-dot', 'manim-etat-lbl', 'manim-elapsed', 'manim-toast', 'manim-log-dot'].forEach(id => {
     const el = document.getElementById(id);
     if (!el) return;
-    if (id === 'manim-btn')      { el.innerHTML = '&#x25B6; Démarrer'; el.disabled = false; }
+    if (id === 'manim-btn')      { el.textContent = 'Démarrer'; el.disabled = false; el.classList.remove('reset'); }
     if (id === 'manim-etat-dot') { el.className = 'manim-etat-dot'; }
     if (id === 'manim-etat-lbl') { el.textContent = 'En attente'; }
     if (id === 'manim-elapsed')  { el.textContent = ''; }
@@ -648,7 +648,7 @@ function manimLancer() {
   const btn = document.getElementById('manim-btn');
   const ed  = document.getElementById('manim-etat-dot');
   const el  = document.getElementById('manim-etat-lbl');
-  if (btn) btn.innerHTML = '&#x21BA; Recommencer';
+  if (btn) { btn.textContent = 'Recommencer'; btn.classList.add('reset'); }
   if (ed)  ed.className  = 'manim-etat-dot run';
   if (el)  el.textContent = 'En cours';
   manimEl = 0;
