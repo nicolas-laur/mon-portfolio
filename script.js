@@ -421,6 +421,301 @@ if (canvas && window.innerWidth > 768) {
   animer();
 }
 // ============================================
+// MODAL — Workflows Make & IA
+// ============================================
+
+// ---- Palette couleurs nœuds ----
+const MANIM_COULEURS = {
+  gris:   { bg:'#F1EFE8', bd:'#888780', c:'#5F5E5A' },
+  amber:  { bg:'#FAEEDA', bd:'#EF9F27', c:'#633806' },
+  violet: { bg:'#EEEDFE', bd:'#7F77DD', c:'#3C3489' },
+  corail: { bg:'#FAECE7', bd:'#D85A30', c:'#712B13' },
+  rouge:  { bg:'#FCEBEB', bd:'#E24B4A', c:'#791F1F' },
+  notion: { bg:'#D3D1C7', bd:'#5F5E5A', c:'#2C2C2A' },
+  vert:   { bg:'#E1F5EE', bd:'#1D9E75', c:'#085041' },
+  bleu:   { bg:'#E6F1FB', bd:'#378ADD', c:'#0C447C' }
+};
+
+// ---- Données & séquences des 4 workflows ----
+const workflowsData = [
+  {
+    titre: 'Briefing Matin — Géopolitique & Finance',
+    desc: 'Chaque matin, ce workflow agrège automatiquement des flux RSS de sources géopolitiques et financières, consolide les titres via un agrégateur, puis demande à Claude de rédiger un briefing synthétique structuré. Le résultat est envoyé directement par email — prêt à lire en moins d\'une minute.',
+    tags: ['Make', 'RSS', 'Anthropic Claude', 'Gmail', 'Veille automatisée'],
+    toast: 'Briefing du jour envoyé avec succès',
+    noeuds: [
+      { icone:'&#x25F7;', label:'Scheduler',    couleur:'gris'   },
+      { icone:'RSS',       label:'Flux RSS ×3',  couleur:'amber'  },
+      { icone:'&#x2261;T', label:'Agrégateur',   couleur:'violet' },
+      { icone:'A\\',       label:'Claude',       couleur:'corail' },
+      { icone:'M',         label:'Gmail',        couleur:'rouge'  }
+    ],
+    seq: [
+      [0,    'n', 0, '07:00',      'Déclenchement du scheduler à 07:00'],
+      [900,  'c', 0],
+      [1700, 'n', 1, '3 articles', '3 flux RSS récupérés — Reuters, Bloomberg, Les Échos'],
+      [2500, 'c', 1],
+      [3300, 'n', 2, 'Consolidé',  'Texte brut agrégé — 1 240 mots consolidés'],
+      [4100, 'c', 2],
+      [4900, 'n', 3, 'Analyse...', 'Claude analyse les tendances et rédige le briefing...'],
+      [6700, 'b', 3, 'Rédigé',     'Résumé structuré généré — 487 tokens, 3 thèmes identifiés'],
+      [7400, 'c', 3],
+      [8200, 'n', 4, 'Envoyé',     'Email envoyé — workflow terminé avec succès'],
+      [9000, 't']
+    ]
+  },
+  {
+    titre: 'Rapport d\'activité quotidien — Business Analyst',
+    desc: 'À heure fixe, le workflow interroge Notion pour récupérer les tickets actifs, les agrège et les soumet à Claude qui génère un rapport d\'activité structuré (avancement, blocages, priorités). Le rapport est envoyé par email pour un suivi quotidien sans effort manuel.',
+    tags: ['Make', 'Notion', 'Anthropic Claude', 'Gmail', 'Reporting'],
+    toast: 'Rapport d\'activité quotidien envoyé',
+    noeuds: [
+      { icone:'&#x25F7;', label:'Scheduler',    couleur:'gris'   },
+      { icone:'N',         label:'Notion',       couleur:'notion' },
+      { icone:'&#x2261;T', label:'Agrégateur',   couleur:'violet' },
+      { icone:'A\\',       label:'Claude',       couleur:'corail' },
+      { icone:'M',         label:'Gmail',        couleur:'rouge'  }
+    ],
+    seq: [
+      [0,    'n', 0, '09:00',       'Déclenchement du scheduler — rapport quotidien'],
+      [900,  'c', 0],
+      [1700, 'n', 1, '12 tickets',  'Tickets actifs récupérés depuis la base Notion'],
+      [2500, 'c', 1],
+      [3300, 'n', 2, 'Agrégé',      'Données consolidées pour analyse'],
+      [4100, 'c', 2],
+      [4900, 'n', 3, 'Rédige...',   'Claude génère le rapport d\'activité structuré...'],
+      [6700, 'b', 3, 'Rédigé',      'Rapport généré — avancement, blocages, priorités identifiés'],
+      [7400, 'c', 3],
+      [8200, 'n', 4, 'Envoyé',      'Rapport d\'activité envoyé — workflow terminé'],
+      [9000, 't']
+    ]
+  },
+  {
+    titre: 'Génération de compte rendu de réunion',
+    desc: 'Le workflow surveille en temps réel les emails Gmail contenant des notes de réunion. Dès réception, Claude analyse le contenu, génère un compte-rendu structuré (décisions, actions, participants), le formate en JSON, crée une entrée Notion et envoie le compte-rendu finalisé par email.',
+    tags: ['Make', 'Gmail', 'Anthropic Claude', 'Notion', 'JSON', 'Automatisation'],
+    toast: 'Compte-rendu transmis aux participants',
+    noeuds: [
+      { icone:'M',         label:'Gmail — veille', couleur:'rouge'  },
+      { icone:'A\\',       label:'Claude',         couleur:'corail' },
+      { icone:'{}',        label:'JSON',            couleur:'vert'   },
+      { icone:'N',         label:'Notion',          couleur:'notion' },
+      { icone:'M',         label:'Gmail — envoi',   couleur:'rouge'  }
+    ],
+    seq: [
+      [0,    'n', 0, 'Email reçu',   'Nouveau email de notes de réunion détecté'],
+      [900,  'c', 0],
+      [1700, 'n', 1, 'Structure...', 'Claude analyse les notes et structure le compte-rendu...'],
+      [3500, 'b', 1, 'Structuré',    'Compte-rendu rédigé — décisions, actions, participants'],
+      [4200, 'c', 1],
+      [5000, 'n', 2, 'Parsé',        'Réponse Claude parsée en JSON structuré'],
+      [5800, 'c', 2],
+      [6600, 'n', 3, 'Archivé',      'Compte-rendu archivé dans la base Notion'],
+      [7400, 'c', 3],
+      [8200, 'n', 4, 'Envoyé',       'Compte-rendu envoyé aux participants'],
+      [9000, 't']
+    ]
+  },
+  {
+    titre: 'Mise à jour de spécifications techniques',
+    desc: 'Ce workflow avancé interroge deux bases Notion pour récupérer les spécifications existantes et les nouvelles données. Un double passage Claude analyse les écarts, propose des mises à jour, structure la réponse en JSON et met à jour les pages Notion — avec notification email en fin de traitement.',
+    tags: ['Make', 'Notion', 'Anthropic Claude', 'JSON', 'Text Parser', 'Specs'],
+    toast: 'Spécifications mises à jour — notification envoyée',
+    noeuds: [
+      { icone:'&#x25F7;', label:'Scheduler',   couleur:'gris'   },
+      { icone:'N',         label:'Notion ×2',  couleur:'notion' },
+      { icone:'A\\',       label:'Claude 1',   couleur:'corail' },
+      { icone:'{}',        label:'JSON',        couleur:'vert'   },
+      { icone:'A\\',       label:'Claude 2',   couleur:'corail' },
+      { icone:'M',         label:'Gmail',       couleur:'rouge'  }
+    ],
+    seq: [
+      [0,     'n', 0, '08:00',      'Déclenchement — analyse des specs techniques'],
+      [900,   'c', 0],
+      [1700,  'n', 1, '5 pages',    '5 pages de spécifications récupérées depuis Notion'],
+      [2500,  'c', 1],
+      [3300,  'n', 2, 'Analyse...', 'Claude 1 — analyse des écarts et propositions...'],
+      [5100,  'b', 2, 'Analysé',    'Première analyse terminée — 8 mises à jour identifiées'],
+      [5800,  'c', 2],
+      [6600,  'n', 3, 'Parsé',      'Réponse structurée en JSON'],
+      [7400,  'c', 3],
+      [8200,  'n', 4, 'Rédige...',  'Claude 2 — rédaction des nouvelles spécifications...'],
+      [10000, 'b', 4, 'Rédigé',     'Spécifications mises à jour — prêtes à publier'],
+      [10700, 'c', 4],
+      [11500, 'n', 5, 'Notifié',    'Notification de mise à jour envoyée'],
+      [12300, 't']
+    ]
+  }
+];
+
+// ---- Références DOM ----
+const modal       = document.getElementById('workflow-modal');
+const modalTitre  = document.getElementById('modal-titre');
+const modalDesc   = document.getElementById('modal-desc');
+const modalTagsEl = document.getElementById('modal-tags');
+const modalFermer = modal ? modal.querySelector('.modal-fermer') : null;
+
+// ---- Moteur d'animation modal ----
+let manimTids = [], manimRun = false, manimEl = 0, manimEtimer, manimWfIdx = -1;
+
+function manimConstruire(index) {
+  manimWfIdx = index;
+  const wf = workflowsData[index];
+  const diag = document.getElementById('manim-diagram');
+  if (!diag) return;
+  diag.innerHTML = '';
+  wf.noeuds.forEach((n, i) => {
+    const col = document.createElement('div');
+    col.className = 'manim-col';
+    col.innerHTML = `<div class="manim-ico" id="mni${i}" data-c="${n.couleur}">${n.icone}</div><div class="manim-lbl">${n.label}</div><div class="manim-badge" id="mnb${i}"></div>`;
+    diag.appendChild(col);
+    if (i < wf.noeuds.length - 1) {
+      const edge = document.createElement('div');
+      edge.className = 'manim-edge';
+      const dc = MANIM_COULEURS[wf.noeuds[i].couleur].bd;
+      edge.innerHTML = `<div class="manim-line"><div class="manim-dot" id="mnd${i}" style="background:${dc}"></div></div>`;
+      diag.appendChild(edge);
+    }
+  });
+  const tEl = document.getElementById('manim-toast-ttl');
+  if (tEl) tEl.textContent = wf.toast;
+}
+
+function manimActiver(i, badge) {
+  const ico = document.getElementById('mni' + i);
+  const bdg = document.getElementById('mnb' + i);
+  const ld  = document.getElementById('manim-log-dot');
+  if (!ico) return;
+  const col = MANIM_COULEURS[ico.dataset.c];
+  ico.style.background   = col.bg;
+  ico.style.borderColor  = col.bd;
+  ico.style.color        = col.c;
+  ico.style.animation    = 'manim-pu .5s ease';
+  setTimeout(() => { if (ico) ico.style.animation = ''; }, 500);
+  if (ld) { ld.style.background = col.bd; ld.className = 'manim-log-dot run'; }
+  if (badge && bdg) { bdg.textContent = badge; bdg.classList.add('vis'); }
+}
+
+function manimBadge(i, badge) {
+  const bdg = document.getElementById('mnb' + i);
+  if (bdg && badge) bdg.textContent = badge;
+}
+
+function manimCouler(i) {
+  const d = document.getElementById('mnd' + i);
+  if (!d) return;
+  d.classList.remove('flow');
+  void d.offsetWidth;
+  d.classList.add('flow');
+}
+
+function manimLog(txt) {
+  const el = document.getElementById('manim-log-txt');
+  if (el) el.textContent = txt;
+}
+
+function manimReinit() {
+  manimTids.forEach(clearTimeout);
+  manimTids = [];
+  clearInterval(manimEtimer);
+  manimRun = false;
+  manimEl  = 0;
+  ['manim-btn', 'manim-etat-dot', 'manim-etat-lbl', 'manim-elapsed', 'manim-toast', 'manim-log-dot'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (id === 'manim-btn')      { el.innerHTML = '&#x25B6; Démarrer'; el.disabled = false; }
+    if (id === 'manim-etat-dot') { el.className = 'manim-etat-dot'; }
+    if (id === 'manim-etat-lbl') { el.textContent = 'En attente'; }
+    if (id === 'manim-elapsed')  { el.textContent = ''; }
+    if (id === 'manim-toast')    { el.classList.remove('vis'); }
+    if (id === 'manim-log-dot')  { el.className = 'manim-log-dot'; el.style.background = ''; }
+  });
+  manimLog('Cliquez sur Démarrer pour simuler le workflow');
+  for (let i = 0; i < 8; i++) {
+    const ico = document.getElementById('mni' + i);
+    const bdg = document.getElementById('mnb' + i);
+    const dot = document.getElementById('mnd' + i);
+    if (ico) { ico.style.background = ico.style.borderColor = ico.style.color = ico.style.animation = ''; }
+    if (bdg) bdg.classList.remove('vis');
+    if (dot) dot.classList.remove('flow');
+  }
+}
+
+function manimLancer() {
+  if (manimWfIdx < 0) return;
+  const wf = workflowsData[manimWfIdx];
+  manimRun = true;
+  const btn = document.getElementById('manim-btn');
+  const ed  = document.getElementById('manim-etat-dot');
+  const el  = document.getElementById('manim-etat-lbl');
+  if (btn) btn.innerHTML = '&#x21BA; Recommencer';
+  if (ed)  ed.className  = 'manim-etat-dot run';
+  if (el)  el.textContent = 'En cours';
+  manimEl = 0;
+  manimEtimer = setInterval(() => {
+    manimEl++;
+    const elapsed = document.getElementById('manim-elapsed');
+    if (elapsed) elapsed.textContent = manimEl + 's';
+  }, 1000);
+  wf.seq.forEach(([delai, type, ...args]) => {
+    manimTids.push(setTimeout(() => {
+      if      (type === 'n') { manimActiver(args[0], args[1]); manimLog(args[2]); }
+      else if (type === 'c') { manimCouler(args[0]); }
+      else if (type === 'b') { manimBadge(args[0], args[1]); manimLog(args[2]); }
+      else if (type === 't') {
+        const toast = document.getElementById('manim-toast');
+        const ed2   = document.getElementById('manim-etat-dot');
+        const el2   = document.getElementById('manim-etat-lbl');
+        const ld    = document.getElementById('manim-log-dot');
+        if (toast) toast.classList.add('vis');
+        if (ed2)   { ed2.className = 'manim-etat-dot ok'; }
+        if (el2)   el2.textContent = 'Terminé';
+        if (ld)    { ld.className = 'manim-log-dot ok'; ld.style.background = '#639922'; }
+        clearInterval(manimEtimer);
+      }
+    }, delai));
+  });
+}
+
+function basculeAnim() {
+  if (manimRun) { manimReinit(); } else { manimLancer(); }
+}
+
+// ---- Open / Close modal ----
+function ouvrirWorkflow(index) {
+  const w = workflowsData[index];
+  if (!w || !modal) return;
+  modalTitre.textContent = w.titre;
+  modalDesc.textContent  = w.desc;
+  modalTagsEl.innerHTML  = w.tags.map(t => `<span class="tag">${t}</span>`).join('');
+  modal.setAttribute('aria-hidden', 'false');
+  modal.classList.add('ouverte');
+  document.body.style.overflow = 'hidden';
+  manimReinit();
+  manimConstruire(index);
+}
+
+function fermerModal() {
+  if (!modal) return;
+  manimReinit();
+  modal.classList.remove('ouverte');
+  modal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+
+// Clic sur les cartes workflow
+document.querySelectorAll('.workflow-carte').forEach(carte => {
+  carte.addEventListener('click', () => ouvrirWorkflow(Number(carte.dataset.index)));
+});
+
+// Fermeture
+if (modalFermer) modalFermer.addEventListener('click', fermerModal);
+if (modal) {
+  modal.addEventListener('click', e => { if (e.target === modal) fermerModal(); });
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') fermerModal(); });
+
+// ============================================
 // CARROUSEL — Certifications
 // ============================================
 

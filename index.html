@@ -369,21 +369,110 @@
           </div>
         </div>
 
-        <div class="projet-carte">
-          <div class="projet-image">🔒</div>
-          <div class="projet-info">
-            <h3>Workflows automatisés</h3>
-            <p>Automatisation de tâches répétitives pour répondre à des besoins métier concrets.</p>
-            <div class="projet-tags">
-              <span class="tag">n8n</span>
-              <span class="tag">Automatisation</span>
-              <span class="tag">IA</span>
+      </div>
+
+      <!-- Sous-section Workflows -->
+      <h3 class="workflows-sous-titre">Automatisations Make &amp; IA</h3>
+      <div class="workflows-grille">
+
+        <button class="workflow-carte" data-index="0" aria-label="Voir le workflow Briefing Matin">
+          <div class="workflow-preview">
+            <img src="assets/Briefing Matin — Géopolitique &amp; Finance.png" alt="Workflow Briefing Matin" loading="lazy">
+            <div class="workflow-overlay"><span class="workflow-voir">Voir le workflow →</span></div>
+          </div>
+          <div class="workflow-info">
+            <h4 class="workflow-titre">Briefing Matin — Géopolitique &amp; Finance</h4>
+            <p class="workflow-desc">Agrège des flux RSS, synthétise via Claude et envoie un briefing email chaque matin.</p>
+            <div class="workflow-tags">
+              <span class="tag">Make</span><span class="tag">RSS</span><span class="tag">Claude</span><span class="tag">Gmail</span>
             </div>
           </div>
-        </div>
+        </button>
+
+        <button class="workflow-carte" data-index="1" aria-label="Voir le workflow Rapport d'activité">
+          <div class="workflow-preview">
+            <img src="assets/Business Analyst - Rapport d'activité quotidien.png" alt="Workflow Rapport d'activité" loading="lazy">
+            <div class="workflow-overlay"><span class="workflow-voir">Voir le workflow →</span></div>
+          </div>
+          <div class="workflow-info">
+            <h4 class="workflow-titre">Rapport d'activité quotidien — Business Analyst</h4>
+            <p class="workflow-desc">Récupère les tickets actifs Notion, génère un rapport via Claude et l'envoie par email.</p>
+            <div class="workflow-tags">
+              <span class="tag">Make</span><span class="tag">Notion</span><span class="tag">Claude</span><span class="tag">Gmail</span>
+            </div>
+          </div>
+        </button>
+
+        <button class="workflow-carte" data-index="2" aria-label="Voir le workflow Compte rendu de réunion">
+          <div class="workflow-preview">
+            <img src="assets/Génération de compte rendu de réunion.png" alt="Workflow Compte rendu de réunion" loading="lazy">
+            <div class="workflow-overlay"><span class="workflow-voir">Voir le workflow →</span></div>
+          </div>
+          <div class="workflow-info">
+            <h4 class="workflow-titre">Génération de compte rendu de réunion</h4>
+            <p class="workflow-desc">Surveille les emails Gmail, structure le compte-rendu avec Claude et l'archive dans Notion.</p>
+            <div class="workflow-tags">
+              <span class="tag">Make</span><span class="tag">Gmail</span><span class="tag">Claude</span><span class="tag">Notion</span>
+            </div>
+          </div>
+        </button>
+
+        <button class="workflow-carte" data-index="3" aria-label="Voir le workflow Spécifications techniques">
+          <div class="workflow-preview">
+            <img src="assets/Mise à jour de spécifications techniques automatique.png" alt="Workflow Spécifications techniques" loading="lazy">
+            <div class="workflow-overlay"><span class="workflow-voir">Voir le workflow →</span></div>
+          </div>
+          <div class="workflow-info">
+            <h4 class="workflow-titre">Mise à jour de spécifications techniques</h4>
+            <p class="workflow-desc">Analyse les pages Notion, met à jour les specs via un double passage Claude et notifie par email.</p>
+            <div class="workflow-tags">
+              <span class="tag">Make</span><span class="tag">Notion</span><span class="tag">Claude</span><span class="tag">JSON</span>
+            </div>
+          </div>
+        </button>
 
       </div>
     </section>
+
+    <!-- MODAL Workflow -->
+    <div id="workflow-modal" class="modal-overlay" aria-hidden="true" role="dialog" aria-modal="true">
+      <div class="modal-boite">
+        <button class="modal-fermer" aria-label="Fermer">&#x2715;</button>
+        <div class="modal-corps">
+          <div class="modal-texte">
+            <h3 id="modal-titre"></h3>
+            <p id="modal-desc"></p>
+            <div id="modal-tags" class="modal-tags"></div>
+          </div>
+          <div class="modal-anim-zone">
+            <div class="manim-entete">
+              <span class="manim-label">Simulation du workflow</span>
+              <div class="manim-etat">
+                <div class="manim-etat-dot" id="manim-etat-dot"></div>
+                <span id="manim-etat-lbl">En attente</span>
+              </div>
+            </div>
+            <div class="manim-diagram" id="manim-diagram"></div>
+            <div class="manim-log">
+              <div class="manim-log-dot" id="manim-log-dot"></div>
+              <div class="manim-log-txt" id="manim-log-txt">Cliquez sur Démarrer pour simuler le workflow</div>
+            </div>
+            <div class="manim-toast" id="manim-toast">
+              <div class="manim-toast-ico">M</div>
+              <div class="manim-toast-body">
+                <div class="manim-toast-ttl" id="manim-toast-ttl"></div>
+                <div class="manim-toast-sub">Envoyé automatiquement par Make</div>
+              </div>
+              <div class="manim-toast-ok">&#x2713;</div>
+            </div>
+            <div class="manim-pied">
+              <button id="manim-btn" onclick="basculeAnim()">&#x25B6; Démarrer</button>
+              <span class="manim-elapsed" id="manim-elapsed"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
 <section id="contact" class="section section-alt">
