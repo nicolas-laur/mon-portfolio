@@ -5,8 +5,6 @@
 // On récupère l'élément <header> dans une variable
 const header = document.querySelector('header');
 
-// "scroll" = événement déclenché chaque fois que l'utilisateur scrolle
-
 
 // ============================================
 // 2. MENU MOBILE — Hamburger (pour les petits écrans)
@@ -81,10 +79,7 @@ elementsAnimes.forEach(el => {
 });
 
 
-// ============================================
-// 4. LIEN ACTIF dans la navbar au scroll
-// ============================================
-
+// Références sections et liens — utilisées par gererScroll()
 const sections = document.querySelectorAll('section[id]');
 const liensNav = document.querySelectorAll('nav a');
 
@@ -167,10 +162,6 @@ let ecrire = setInterval(typewriter, 80);
 const barreProgression = document.createElement('div');
 barreProgression.classList.add('barre-progression');
 document.body.appendChild(barreProgression);
-
-// ============================================
-// EFFET 3 — CURSEUR PERSONNALISÉ
-// ============================================
 
 // ============================================
 // EFFET 3 — CURSEUR PERSONNALISÉ
