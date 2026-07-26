@@ -6,17 +6,6 @@
 const header = document.querySelector('header');
 
 // "scroll" = événement déclenché chaque fois que l'utilisateur scrolle
-window.addEventListener('scroll', () => {
-  // window.scrollY = nombre de pixels scrollés depuis le haut
-
-  if (window.scrollY > 50) {
-    // Si on a scrollé de plus de 50px → on ajoute la classe "scrolled"
-    header.classList.add('scrolled');
-  } else {
-    // Sinon on la retire
-    header.classList.remove('scrolled');
-  }
-});
 
 
 // ============================================
@@ -99,28 +88,6 @@ elementsAnimes.forEach(el => {
 const sections = document.querySelectorAll('section[id]');
 const liensNav = document.querySelectorAll('nav a');
 
-window.addEventListener('scroll', () => {
-  let sectionActuelle = '';
-
-  sections.forEach(section => {
-    const haut = section.offsetTop - 100;
-    // offsetTop = distance entre le haut de l'élément et le haut de la page
-
-    if (window.scrollY >= haut) {
-      sectionActuelle = section.getAttribute('id');
-      // getAttribute('id') = récupère la valeur de l'attribut id
-    }
-  });
-
-  liensNav.forEach(lien => {
-    lien.classList.remove('actif');
-    if (lien.getAttribute('href') === `#${sectionActuelle}`) {
-      lien.classList.add('actif');
-      // Les backticks `` permettent d'insérer une variable dans une chaîne
-      // C'est ce qu'on appelle un "template literal"
-    }
-  });
-});
 
 
 // ============================================
@@ -153,6 +120,7 @@ const textes = [
 let indexTexte = 0;    // Quel texte on affiche en ce moment
 let indexLettre = 0;   // Jusqu'à quelle lettre on est arrivé
 let enTrain = true;    // true = on écrit, false = on efface
+let effacer;           // intervalle d'effacement — déclaré ici pour éviter la variable globale implicite
 
 function typewriter() {
   const texteCourant = textes[indexTexte];
@@ -200,18 +168,6 @@ const barreProgression = document.createElement('div');
 barreProgression.classList.add('barre-progression');
 document.body.appendChild(barreProgression);
 
-window.addEventListener('scroll', () => {
-  const hauteurTotale = document.documentElement.scrollHeight;
-  // scrollHeight = hauteur totale de la page (incluant ce qui est hors écran)
-
-  const hauteurFenetre = window.innerHeight;
-  // innerHeight = hauteur visible de la fenêtre
-
-  const progression = (window.scrollY / (hauteurTotale - hauteurFenetre)) * 100;
-
-  barreProgression.style.width = progression + '%';
-  // On met à jour la largeur de la barre en temps réel
-});
 // ============================================
 // EFFET 3 — CURSEUR PERSONNALISÉ
 // ============================================
@@ -298,6 +254,9 @@ if (form) {
             <p>Merci pour votre message. Je vous répondrai dans les plus brefs délais.</p>
           </div>
         `;
+        // Annonce pour les lecteurs d'écran via la région aria-live
+        const annonce = document.getElementById('form-annonce');
+        if (annonce) annonce.textContent = 'Message envoyé ! Je vous répondrai dans les plus brefs délais.';
       } else {
         throw new Error('Erreur serveur');
       }
@@ -308,23 +267,44 @@ if (form) {
   });
 }
 // ============================================
-// PARALLAX — Effet de profondeur au scroll
+// SCROLL — Gestionnaire unifié (header + navbar + progression + parallax)
 // ============================================
 
 const heroSection = document.querySelector('.hero');
 
-window.addEventListener('scroll', () => {
-  const scrolled = window.scrollY;
-  
-  // Le contenu Hero remonte 2x moins vite que le scroll
-  // Crée une illusion de profondeur
-  if (heroSection) {
-    heroSection.style.transform = `translateY(${scrolled * 0.3}px)`;
-    // 0.3 = facteur de parallax — plus petit = effet plus subtil
-    heroSection.style.opacity = 1 - scrolled * 0.002;
-    // Le hero devient transparent progressivement au scroll
+function gererScroll() {
+  const scrollY = window.scrollY;
+
+  // Header scrolled
+  if (scrollY > 50) {
+    header.classList.add('scrolled');
+  } else {
+    header.classList.remove('scrolled');
   }
-});
+
+  // Lien actif navbar
+  let sectionActuelle = '';
+  sections.forEach(section => {
+    if (scrollY >= section.offsetTop - 100) {
+      sectionActuelle = section.getAttribute('id');
+    }
+  });
+  liensNav.forEach(lien => {
+    lien.classList.toggle('actif', lien.getAttribute('href') === `#${sectionActuelle}`);
+  });
+
+  // Barre de progression
+  const progression = (scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+  barreProgression.style.width = progression + '%';
+
+  // Parallax hero
+  if (heroSection) {
+    heroSection.style.transform = `translateY(${scrollY * 0.3}px)`;
+    heroSection.style.opacity = 1 - scrollY * 0.002;
+  }
+}
+
+window.addEventListener('scroll', gererScroll, { passive: true });
 // ============================================
 // CANVAS — Réseau de particules interactif
 // ============================================
@@ -682,6 +662,14 @@ function basculeAnim() {
 }
 
 // ---- Open / Close modal ----
+let derniereCarte = null;
+
+function focusablesModal() {
+  return Array.from(modal.querySelectorAll(
+    'button:not([disabled]), [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+  )).filter(el => el.offsetParent !== null);
+}
+
 function ouvrirWorkflow(index) {
   const w = workflowsData[index];
   if (!w || !modal) return;
@@ -693,6 +681,8 @@ function ouvrirWorkflow(index) {
   document.body.style.overflow = 'hidden';
   manimReinit();
   manimConstruire(index);
+  const premier = focusablesModal()[0];
+  if (premier) premier.focus();
 }
 
 function fermerModal() {
@@ -701,17 +691,35 @@ function fermerModal() {
   modal.classList.remove('ouverte');
   modal.setAttribute('aria-hidden', 'true');
   document.body.style.overflow = '';
+  if (derniereCarte) derniereCarte.focus();
 }
 
 // Clic sur les cartes workflow
 document.querySelectorAll('.workflow-carte').forEach(carte => {
-  carte.addEventListener('click', () => ouvrirWorkflow(Number(carte.dataset.index)));
+  carte.addEventListener('click', () => {
+    derniereCarte = carte;
+    ouvrirWorkflow(Number(carte.dataset.index));
+  });
 });
 
 // Fermeture
 if (modalFermer) modalFermer.addEventListener('click', fermerModal);
 if (modal) {
   modal.addEventListener('click', e => { if (e.target === modal) fermerModal(); });
+
+  // Focus trap — Tab reste dans la modale tant qu'elle est ouverte
+  modal.addEventListener('keydown', e => {
+    if (!modal.classList.contains('ouverte') || e.key !== 'Tab') return;
+    const focusables = focusablesModal();
+    if (!focusables.length) return;
+    const premier = focusables[0];
+    const dernier = focusables[focusables.length - 1];
+    if (e.shiftKey) {
+      if (document.activeElement === premier) { e.preventDefault(); dernier.focus(); }
+    } else {
+      if (document.activeElement === dernier) { e.preventDefault(); premier.focus(); }
+    }
+  });
 }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') fermerModal(); });
 

@@ -31,6 +31,35 @@
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
   <link rel="stylesheet" href="style.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Nicolas LAUR",
+    "jobTitle": "Business Analyst IA et Cloud",
+    "url": "https://nicolas-laur.com",
+    "email": "contact@nicolas-laur.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Toulouse",
+      "addressCountry": "FR"
+    },
+    "sameAs": [
+      "https://www.linkedin.com/in/nicolas-l-97a423113/",
+      "https://github.com/nicolas-laur"
+    ],
+    "knowsAbout": ["Business Analysis", "Intelligence Artificielle", "Cloud AWS", "OMS", "Automatisation IA", "Make", "Anthropic Claude"],
+    "alumniOf": {
+      "@type": "EducationalOrganization",
+      "name": "SKEMA Business School"
+    },
+    "worksFor": {
+      "@type": "Organization",
+      "name": "OneStock"
+    }
+  }
+  </script>
 </head>
 
 <body>
@@ -67,7 +96,6 @@
     <section id="accueil" class="hero">
         <!-- Canvas des particules — juste avant hero-content -->
   <canvas id="canvas-particules"></canvas>
-        <div class="hero-mobile-bg" aria-hidden="true"></div>
   <div class="hero-content">
         <p class="hero-salut">Bonjour, je suis</p>
         <h1 class="hero-nom">Nicolas LAUR</h1>
@@ -134,25 +162,25 @@
       <div class="competences-grille">
 
         <div class="competence-carte">
-          <span class="competence-icone">📊</span>
+          <span class="competence-icone" role="img" aria-label="Business Analysis">📊</span>
           <h3>Business Analysis</h3>
           <p>OMS, SAP, MDM, COUPA (certifié), Gestion backoffice e-commerce, Commerce international B2B</p>
         </div>
 
         <div class="competence-carte">
-          <span class="competence-icone">🤖</span>
+          <span class="competence-icone" role="img" aria-label="Intelligence artificielle">🤖</span>
           <h3>IA & Data</h3>
           <p>AWS Certified AI Practitioner, AWS Certified Cloud Practitioner, Anthropic Claude (certifié), Qlik Sense, Data Visualisation, KPIs</p>
         </div>
 
         <div class="competence-carte">
-          <span class="competence-icone">👥</span>
+          <span class="competence-icone" role="img" aria-label="Management">👥</span>
           <h3>Management</h3>
           <p>Responsable Data Management (5 pers.), Grands comptes LVMH & Airbus, Méthode AGILE</p>
         </div>
 
         <div class="competence-carte">
-          <span class="competence-icone">💻</span>
+          <span class="competence-icone" role="img" aria-label="Digital et développement">💻</span>
           <h3>Digital & Dev</h3>
           <p>HTML, CSS, JavaScript, Architecture internet</p>
         </div>
@@ -265,7 +293,7 @@
           <div class="carrousel-piste">
 
             <a class="cert-carte" href="assets/certificate-miyjp5g2rtd8-1774544431.pdf" target="_blank" rel="noopener">
-              <div class="cert-icone">🤖</div>
+              <div class="cert-icone" role="img" aria-label="Robot">🤖</div>
               <div class="cert-contenu">
                 <h3 class="cert-titre">Claude 101</h3>
                 <p class="cert-emetteur">Anthropic</p>
@@ -274,7 +302,7 @@
             </a>
 
             <a class="cert-carte" href="assets/certificate-4fsazcsyx2p9-1774610523.pdf" target="_blank" rel="noopener">
-              <div class="cert-icone">🤝</div>
+              <div class="cert-icone" role="img" aria-label="Collaboration">🤝</div>
               <div class="cert-contenu">
                 <h3 class="cert-titre">Introduction to Claude Cowork</h3>
                 <p class="cert-emetteur">Anthropic</p>
@@ -283,7 +311,7 @@
             </a>
 
             <a class="cert-carte" href="assets/certificate-ggu65xcixw63-1774533977.pdf" target="_blank" rel="noopener">
-              <div class="cert-icone">💻</div>
+              <div class="cert-icone" role="img" aria-label="Ordinateur">💻</div>
               <div class="cert-contenu">
                 <h3 class="cert-titre">Claude Code in Action</h3>
                 <p class="cert-emetteur">Anthropic · Mars 2026</p>
@@ -303,7 +331,7 @@
             </a>
 
             <a class="cert-carte" href="assets/certificate-cnvfbcoarguc-1776080621.pdf" target="_blank" rel="noopener">
-              <div class="cert-icone">🛠️</div>
+              <div class="cert-icone" role="img" aria-label="Outils">🛠️</div>
               <div class="cert-contenu">
                 <h3 class="cert-titre">Introduction to agent skills</h3>
                 <p class="cert-emetteur">Anthropic · Avril 2026</p>
@@ -312,7 +340,7 @@
             </a>
 
             <a class="cert-carte" href="assets/certificate-hb5662mk5weh-1776093023.pdf" target="_blank" rel="noopener">
-              <div class="cert-icone">🔗</div>
+              <div class="cert-icone" role="img" aria-label="Sous-agents">🔗</div>
               <div class="cert-contenu">
                 <h3 class="cert-titre">Introduction to subagents</h3>
                 <p class="cert-emetteur">Anthropic · Avril 2026</p>
@@ -321,7 +349,7 @@
             </a>
 
             <a class="cert-carte" href="assets/certificate-g8juudgmyfea-1776170952.pdf" target="_blank" rel="noopener">
-              <div class="cert-icone">⌨️</div>
+              <div class="cert-icone" role="img" aria-label="Clavier">⌨️</div>
               <div class="cert-contenu">
                 <h3 class="cert-titre">Claude Code 101</h3>
                 <p class="cert-emetteur">Anthropic · Avril 2026</p>
@@ -330,7 +358,7 @@
             </a>
 
             <a class="cert-carte" href="assets/certificate-wjb5wd8qq6ck-1775990875.pdf" target="_blank" rel="noopener">
-              <div class="cert-icone">🔌</div>
+              <div class="cert-icone" role="img" aria-label="Protocole MCP">🔌</div>
               <div class="cert-contenu">
                 <h3 class="cert-titre">Introduction to Model Context Protocol</h3>
                 <p class="cert-emetteur">Anthropic · Avril 2026</p>
@@ -363,7 +391,7 @@
       <div class="projets-grille">
 
         <div class="projet-carte">
-          <div class="projet-image">🌐</div>
+          <div class="projet-image" role="img" aria-label="Globe internet">🌐</div>
           <div class="projet-info">
             <h3>Portfolio — nicolas-laur.com</h3>
             <p>Site vitrine personnel conçu et développé de A à Z en HTML, CSS et JavaScript.</p>
@@ -376,7 +404,7 @@
         </div>
 
         <div class="projet-carte">
-          <div class="projet-image">📊</div>
+          <div class="projet-image" role="img" aria-label="Tableau de bord">📊</div>
           <div class="projet-info">
             <h3>Dashboard Qlik Sense — Airbus</h3>
             <p>Conception et déploiement de tableaux de bord et KPIs stratégiques pour la place de marché propriétaire d'Airbus Commercial. Management d'une équipe Data de 5 personnes.</p>
@@ -503,6 +531,7 @@
 
   <div class="contact-wrapper">
 
+    <div aria-live="polite" id="form-annonce" class="sr-only"></div>
     <form class="contact-form" action="https://formspree.io/f/mreoezav" method="POST">
 
       <div class="form-groupe">
