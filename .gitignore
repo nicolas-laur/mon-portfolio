@@ -21,3 +21,18 @@ secrets.json
 # Logs
 *.log
 npm-debug.log*
+
+# Documents personnels — ne pas exposer sur le repo public
+about-me.md
+carte-adn.md
+ma-voix.md
+mes-regles.md
+mon-projet.md
+qui-je-suis.md
+Claude.md
+
+# Claude Code
+.claude/
+
+# Fichier vide créé accidentellement
+git
